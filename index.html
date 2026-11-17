@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIOZZ — Atacado Editorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root,
+    [data-theme="noir"] {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f5f5f5;
+      --surface-img: #f6f6f6;
+      --text: #111111;
+      --text-muted: #727272;
+      --border: #e6e6e6;
+      --primary: #111111;
+      --primary-hover: #2c2c2c;
+      --primary-soft: #f3f3f3;
+      --accent: #111111;
+      --danger: #b91c1c;
+      --radius: 0px;
+      --radius-sm: 2px;
+      --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    [data-theme="forest"] {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f4f6f4;
+      --surface-img: #f6f7f6;
+      --text: #111613;
+      --text-muted: #66706a;
+      --border: #e3e8e4;
+      --primary: #0f5c2e;
+      --primary-hover: #0a4421;
+      --primary-soft: #eef5f0;
+      --accent: #0f5c2e;
+    }
+
+    [data-theme="coastal"] {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f3f5f8;
+      --surface-img: #f5f7f9;
+      --text: #0f1722;
+      --text-muted: #647182;
+      --border: #e1e6ed;
+      --primary: #0f3a60;
+      --primary-hover: #0a2945;
+      --primary-soft: #edf2f7;
+      --accent: #0f3a60;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+    button, input, textarea, select { font-family: inherit; }
+    button { cursor: pointer; border: none; background: none; color: inherit; }
+    img, video { display: block; max-width: 100%; }
+    svg.ico { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    svg.ico-sm { width: 15px; height: 15px; }
+
+    /* Subtle Presentation Control Strip */
+    .pres-bar {
+      background: #111111;
+      color: #f1f1f1;
+      padding: 7px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 11.5px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #262626;
+    }
+    .pres-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: 0.04em; }
+    .pres-pill { border: 1px solid rgba(255,255,255,0.28); padding: 1px 7px; font-size: 10px; font-weight: 500; color: #ccc; }
+    .pres-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .pres-tab {
+      color: #a3a3a3;
+      padding: 5px 11px;
+      font-weight: 600;
+      font-size: 11.5px;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+    .pres-tab:hover { color: #fff; }
+    .pres-tab.active { color: #fff; border-bottom-color: #fff; }
+
+    .pres-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .theme-picker { display: flex; align-items: center; gap: 6px; }
+    .theme-picker span { font-size: 11px; color: #a3a3a3; }
+    .theme-dot-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #bdbdbd;
+      border: 1px solid #333;
+      transition: 0.2s;
+    }
+    .theme-dot-btn.active { background: #fff; color: #111; border-color: #fff; font-weight: 700; }
+    .swatch { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+    .pres-actions { display: flex; align-items: center; gap: 4px; }
+    .device-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #bdbdbd;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid #333;
+    }
+    .device-btn.active { background: #fff; color: #111; border-color: #fff; }
+
+    /* Mobile Preview Shell */
+    .viewport-wrapper { transition: all 0.25s ease; margin: 0 auto; width: 100%; background: var(--bg); }
+    .viewport-wrapper.mobile-sim {
+      max-width: 400px;
+      margin: 20px auto 50px;
+      border: 10px solid #161616;
+      border-radius: 32px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 820px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+    .viewport-wrapper.mobile-sim .desktop-only { display: none !important; }
+    .viewport-wrapper.mobile-sim .mobile-only { display: inline-flex !important; }
+    .viewport-wrapper.mobile-sim .header-top-row { grid-template-columns: auto 1fr auto; }
+    .viewport-wrapper.mobile-sim .header-sub-row { flex-direction: column; align-items: stretch; gap: 8px; }
+    .viewport-wrapper.mobile-sim .search-underline { width: 100%; }
+    .viewport-wrapper.mobile-sim .catalog-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px 10px !important; }
+    .viewport-wrapper.mobile-sim .product-layout { grid-template-columns: 1fr !important; gap: 20px !important; }
+    .viewport-wrapper.mobile-sim .gallery-wrap { flex-direction: column-reverse !important; }
+    .viewport-wrapper.mobile-sim .thumbs-col { flex-direction: row !important; width: 100% !important; }
+    .viewport-wrapper.mobile-sim .thumb-btn { width: 58px; }
+
+    /* FARFETCH-STYLE EDITORIAL HEADER */
+    .store-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px 24px 0;
+    }
+    .header-top-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .header-left-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .header-left-links button.active { color: var(--text); font-weight: 700; }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+    }
+    .logo-icon { width: 24px; height: 24px; object-fit: contain; }
+    .logo-main {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+    .icon-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      position: relative;
+      padding: 4px;
+    }
+    .icon-action-btn:hover { opacity: 0.7; }
+    .bag-count {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--primary);
+      color: #fff;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-bounce { animation: cartBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes cartBounce { 0% { transform: scale(1); } 45% { transform: scale(1.35); } 100% { transform: scale(1); } }
+
+    /* Sub-header: Categories + Arrows/Cascade + Minimal Underline Search */
+    .header-sub-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 12px;
+      position: relative;
+    }
+    .cat-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+    .cat-scroll-btn {
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      transition: 0.15s;
+    }
+    .cat-scroll-btn:hover { color: var(--text); border-color: var(--text); }
+    .cat-nav-inner {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      flex: 1;
+      padding: 2px 0;
+    }
+    .cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid transparent;
+      transition: 0.2s;
+    }
+    .cat-link:hover { color: var(--text); }
+    .cat-link.active { color: var(--text); font-weight: 700; border-bottom-color: var(--primary); }
+
+    .mobile-only { display: none; }
+    .cat-cascade-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cat-cascade-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      padding: 6px;
+      z-index: 90;
+      min-width: 190px;
+      display: none;
+      flex-direction: column;
+    }
+    .cat-cascade-menu.open { display: flex; }
+    .cat-cascade-item {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .cat-cascade-item:hover, .cat-cascade-item.active { background: var(--surface-soft); font-weight: 700; }
+
+    .search-underline {
+      width: 260px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #c9c9c9;
+      padding-bottom: 5px;
+      flex-shrink: 0;
+    }
+    .search-underline:focus-within { border-bottom-color: var(--primary); }
+    .search-underline input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .search-underline input::placeholder { color: var(--text-muted); }
+
+    /* Main Container */
+    .container { max-width: 1320px; margin: 0 auto; padding: 20px 24px 90px; }
+
+    /* Filter & Sort Toolbar (Farfetch Style) */
+    .toolbar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .filter-chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--primary); font-weight: 700; }
+    .sort-select {
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Editorial Product Grid (Borderless, Crisp, Hover Zoom) */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px 18px;
+    }
+    @media (max-width: 1024px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px) { .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 18px 12px; } }
+
+    .product-card {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-img-wrap {
+      aspect-ratio: 3/4;
+      background: var(--surface-img);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .product-card:hover .card-img-wrap img { transform: scale(1.10); }
+
+    .card-fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      background: rgba(255,255,255,0.82);
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .card-fav-btn:hover { background: #fff; transform: scale(1.08); }
+    .card-tag-top {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      letter-spacing: 0.02em;
+    }
+    .card-video-pill {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(17,17,17,0.82);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-kicker { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 2px; }
+    .card-brand { font-size: 13.5px; font-weight: 700; color: var(--text); }
+    .card-title { font-size: 13px; font-weight: 400; color: var(--text-muted); margin-bottom: 6px; }
+    .card-price { font-size: 14px; font-weight: 700; color: var(--text); }
+
+    /* Product Slug Detail (Farfetch Editorial Split + Direct + / - Cart) */
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .breadcrumb:hover { color: var(--text); }
+
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .gallery-wrap { display: flex; gap: 16px; }
+    .thumbs-col { display: flex; flex-direction: column; gap: 10px; width: 68px; flex-shrink: 0; }
+    .thumb-btn {
+      aspect-ratio: 3/4;
+      background: var(--surface-img);
+      overflow: hidden;
+      position: relative;
+      border-right: 2px solid transparent;
+      padding-right: 4px;
+      transition: 0.2s;
+    }
+    .thumb-btn.active { border-right-color: var(--primary); }
+    .thumb-btn img, .thumb-btn video { width: 100%; height: 100%; object-fit: cover; }
+    .thumb-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.28);
+      color: #fff;
+    }
+
+    .main-photo-box {
+      flex: 1;
+      background: var(--surface-img);
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .main-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .main-photo-box:hover img { transform: scale(1.08); }
+    .main-photo-box video { width: 100%; height: 100%; object-fit: cover; background: #000; }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.88);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+    }
+    .gallery-arrow:hover { background: #fff; }
+    .gallery-arrow.prev { left: 10px; }
+    .gallery-arrow.next { right: 10px; }
+    .download-photo-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.9);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+    }
+
+    .product-info-col { padding-top: 4px; }
+    .slug-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .slug-brand { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .slug-title { font-size: 18px; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
+    .slug-metrics {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    .slug-metrics span { display: inline-flex; align-items: center; gap: 5px; }
+    .slug-price { font-size: 22px; font-weight: 700; color: var(--text); margin-top: 14px; }
+    .slug-installment { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    .size-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 22px 0 10px;
+      font-size: 12.5px;
+    }
+    .size-guide-link { text-decoration: underline; color: var(--text-muted); font-size: 12px; }
+
+    /* Minimalist Direct-to-Cart Variation Rows */
+    .variations-list { border-top: 1px solid var(--border); }
+    .var-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease;
+    }
+    .var-row.in-cart { background: var(--primary-soft); padding-left: 10px; padding-right: 10px; }
+    .var-size { font-size: 13.5px; font-weight: 600; display: block; }
+    .var-sub { font-size: 12px; color: var(--text-muted); }
+
+    .qty-control { display: flex; align-items: center; gap: 8px; }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.15s;
+    }
+    .qty-btn:hover { border-color: var(--primary); }
+    .qty-btn.plus { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .qty-btn.plus:hover { background: var(--primary-hover); }
+    .qty-btn:active { transform: scale(0.92); }
+    .qty-num {
+      min-width: 28px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .pop-anim { animation: popQty 0.26s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes popQty { 0% { transform: scale(1); } 50% { transform: scale(1.28); } 100% { transform: scale(1); } }
+
+    .cta-bag-btn {
+      margin-top: 18px;
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .cta-bag-btn:hover { background: var(--primary-hover); }
+
+    .social-action-bar {
+      display: flex;
+      gap: 18px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .social-action-bar button {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .social-action-bar button:hover { color: var(--text); }
+
+    /* Product Details Editorial Sections */
+    .detail-sections { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 32px; display: grid; gap: 36px; }
+    .detail-block h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 14px; }
+    .spec-item { background: var(--surface-soft); padding: 12px 14px; font-size: 12.5px; }
+    .spec-item span { display: block; color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
+
+    .qa-item, .review-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .qa-q { font-size: 13.5px; font-weight: 600; margin-bottom: 4px; }
+    .qa-a { font-size: 13px; color: var(--text-muted); padding-left: 12px; border-left: 2px solid var(--primary); }
+
+    .inline-form { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .inline-form input, .inline-form select {
+      flex: 1;
+      min-width: 180px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      background: #fff;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover { border-color: var(--text); }
+
+    /* ADMIN PANEL WITH SIDEBAR & 2 ROLES (ADMIN vs VENDEDOR) */
+    .admin-shell {
+      max-width: 1320px;
+      margin: 24px auto 70px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .admin-sidebar {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 16px;
+      position: sticky;
+      top: 54px;
+    }
+    .admin-sb-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-sb-brand img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+
+    .role-switcher {
+      background: var(--surface-soft);
+      padding: 4px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .role-btn {
+      padding: 7px 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      transition: 0.2s;
+    }
+    .role-btn.active { background: var(--primary); color: #fff; }
+
+    .admin-nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 3px;
+      transition: 0.15s;
+    }
+    .admin-nav-btn:hover { background: var(--surface-soft); color: var(--text); }
+    .admin-nav-btn.active { background: var(--primary); color: #fff; font-weight: 600; }
+
+    .admin-sb-filters {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .admin-sb-filters h4 { font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.05em; }
+    .admin-sb-filters label { display: block; font-size: 11.5px; font-weight: 600; margin: 8px 0 4px; }
+    .admin-sb-filters select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 12.5px;
+    }
+
+    .admin-main { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+    .role-banner {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+    .kpi-card { border: 1px solid var(--border); background: #fff; padding: 18px; }
+    .kpi-label { font-size: 11.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .kpi-val { font-size: 24px; font-weight: 800; color: var(--text); margin-top: 6px; }
+    .kpi-trend { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+
+    .panel-card { border: 1px solid var(--border); background: #fff; padding: 20px; }
+    .bars-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 190px;
+      padding: 20px 8px 8px;
+      border-bottom: 1px solid var(--border);
+      margin-top: 10px;
+    }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px; }
+    .bar-val-lbl { font-size: 10.5px; font-weight: 600; color: var(--text-muted); }
+    .bar-fill { width: 100%; max-width: 42px; background: var(--primary); transition: height 0.3s ease; min-height: 6px; }
+    .bar-day-lbl { font-size: 11.5px; font-weight: 600; }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+    .data-table th, .data-table td { padding: 11px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+    .data-table th { font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.04em; background: var(--surface-soft); }
+    .badge-status { display: inline-block; padding: 3px 8px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); }
+    .badge-warn { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+
+    /* Drawers, Modals, Floating WhatsApp & Toasts */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45);
+      z-index: 200; display: none; justify-content: flex-end;
+    }
+    .overlay.open { display: flex; }
+    .drawer { width: 100%; max-width: 420px; background: #fff; height: 100%; display: flex; flex-direction: column; }
+    .drawer-head { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+    .drawer-foot { padding: 18px 20px; border-top: 1px solid var(--border); background: var(--surface-soft); }
+    .cart-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: center; }
+    .cart-item img { width: 58px; height: 74px; object-fit: cover; background: var(--surface-img); }
+
+    .modal-center {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5);
+      z-index: 300; display: none; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-center.open { display: flex; }
+    .modal-card { background: #fff; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; padding: 24px; border: 1px solid var(--border); }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--text-muted); }
+    .field input, .field select { width: 100%; padding: 10px 12px; border: 1px solid var(--border); font-size: 14px; background: #fff; }
+
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+    .step-box { padding: 8px 6px; text-align: center; font-size: 11px; font-weight: 600; background: var(--surface-soft); color: var(--text-muted); border: 1px solid var(--border); }
+    .step-box.done { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Floating WhatsApp Button (Minimalist Editorial Bottom-Right) */
+    .wa-float {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 190;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #111111;
+      color: #ffffff;
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .wa-float:hover { transform: translateY(-2px); background: #25d366; color: #fff; }
+
+    /* Global Purchase Toast */
+    .global-toast {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      background: #111111;
+      color: #fff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      z-index: 180;
+      max-width: 320px;
+      transform: translateY(150%);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .global-toast.show { transform: translateY(0); opacity: 1; }
+    .global-toast img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+
+    .micro-toast {
+      position: fixed;
+      bottom: 76px;
+      right: 22px;
+      background: var(--primary);
+      color: #fff;
+      padding: 9px 16px;
+      font-size: 12.5px;
+      font-weight: 600;
+      z-index: 250;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all 0.25s ease;
+    }
+    .micro-toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Architecture View */
+    .arch-diagram { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 18px 0; }
+    .arch-box { background: #fff; border: 1px solid var(--border); padding: 18px; }
+    .arch-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; background: var(--surface-soft); color: var(--text); margin-bottom: 8px; letter-spacing: 0.04em; }
+
+    .romaneio-sheet { border: 1.5px dashed #111; padding: 18px; font-family: "Courier New", monospace; font-size: 12px; background: #fff; color: #000; }
+    .hidden { display: none !important; }
+
+    @media print { .pres-bar, .no-print { display: none !important; } }
+    @media (max-width: 860px) {
+      .header-inner { padding: 12px 16px 0; }
+      .header-top-row { grid-template-columns: auto 1fr auto; }
+      .header-sub-row { flex-direction: column; align-items: stretch; gap: 8px; }
+      .search-underline { width: 100%; }
+      .product-layout { grid-template-columns: 1fr; gap: 22px; }
+      .gallery-wrap { flex-direction: column-reverse; }
+      .thumbs-col { flex-direction: row; width: 100%; }
+      .thumb-btn { width: 60px; }
+      .admin-shell { grid-template-columns: 1fr; padding: 0 16px; }
+      .admin-sidebar { position: static; }
+      .mobile-only { display: inline-flex; }
+    }
+  </style>
+</head>
+<body data-theme="noir">
+
+  <!-- Presentation Bar -->
+  <div class="pres-bar no-print">
+    <div class="pres-brand">
+      <span>DIOZZ MVP</span>
+      <span class="pres-pill">Editorial Minimal</span>
+    </div>
+    <div class="pres-tabs">
+      <button class="pres-tab active" onclick="switchPresView('store', this)">1. Loja & Slug</button>
+      <button class="pres-tab" onclick="switchPresView('admin', this)">2. Painel (Admin / Vendedor)</button>
+      <button class="pres-tab" onclick="switchPresView('arch', this)">3. Arquitetura & Filas</button>
+    </div>
+    <div class="pres-right">
+      <div class="theme-picker">
+        <span>Cores:</span>
+        <button class="theme-dot-btn active" onclick="setTheme('noir', this)"><span class="swatch" style="background:#111111;"></span>Preto</button>
+        <button class="theme-dot-btn" onclick="setTheme('forest', this)"><span class="swatch" style="background:#0f5c2e;"></span>Verde</button>
+        <button class="theme-dot-btn" onclick="setTheme('coastal', this)"><span class="swatch" style="background:#0f3a60;"></span>Marinho</button>
+      </div>
+      <div class="pres-actions">
+        <button id="btn-desktop" class="device-btn active" onclick="setViewport('desktop')">Desktop</button>
+        <button id="btn-mobile" class="device-btn" onclick="setViewport('mobile')">Mobile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 1: STOREFRONT (FARFETCH EDITORIAL) -->
+  <div id="pres-store" class="viewport-wrapper">
+    <header class="store-header">
+      <div class="header-inner">
+        <div class="header-top-row">
+          <div class="header-left-links desktop-only">
+            <button class="active" onclick="goHome()">Atacado</button>
+            <button onclick="selectCategory('Novidades')">Novidades</button>
+            <button onclick="selectCategory('Kit Casal')">Kit Casal</button>
+          </div>
+
+          <a class="logo-wrap" onclick="goHome()" title="Ir para a Home">
+            <img class="logo-icon" src="./assets/logo-diozz-simbolo.png" alt="Diozz" />
+            <span class="logo-main">DIOZZ</span>
+          </a>
+
+          <div class="header-actions">
+            <button class="icon-action-btn" onclick="openAccountModal()" title="Minha Conta">
+              <svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+            <button class="icon-action-btn" onclick="showMicroToast('Lista de favoritos')" title="Favoritos">
+              <svg class="ico" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+            <button class="icon-action-btn" onclick="openCart()" title="Sacola / Carrinho">
+              <svg class="ico" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span id="header-cart-count" class="bag-count">0</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="header-sub-row">
+          <div class="cat-bar">
+            <button class="cat-scroll-btn" onclick="scrollCats(-140)" title="Anterior">
+              <svg class="ico-sm" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div id="cat-list" class="cat-nav-inner"></div>
+            <button class="cat-scroll-btn" onclick="scrollCats(140)" title="Próximo">
+              <svg class="ico-sm" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button class="cat-cascade-btn mobile-only" onclick="toggleCascade()">
+              <span>Categorias</span>
+              <svg class="ico-sm" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="cat-cascade-menu" class="cat-cascade-menu"></div>
+          </div>
+
+          <div class="search-underline">
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="search-input" type="text" placeholder="O que você está procurando?" oninput="renderCatalog()" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Clean Catalog Grid -->
+      <section id="view-catalog">
+        <div class="toolbar-row">
+          <div class="filter-chips" id="quick-filters"></div>
+          <div>
+            <select id="sort-select" class="sort-select" onchange="renderCatalog()">
+              <option value="featured">Ordenar por: Destaques</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+            </select>
+          </div>
+        </div>
+        <div id="catalog-grid" class="catalog-grid"></div>
+      </section>
+
+      <!-- Product Detail / Slug -->
+      <section id="view-product" class="hidden"></section>
+    </main>
+  </div>
+
+  <!-- VIEW 2: ADMIN PANEL WITH 2 ROLES (ADMIN vs VENDEDOR) -->
+  <div id="pres-admin" class="hidden">
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-sb-brand">
+          <img src="./assets/logo-diozz-selo.jpg" alt="Diozz" />
+          <div>
+            <strong style="font-size:14px;">DIOZZ GESTÃO</strong>
+            <div style="font-size:11px;color:var(--text-muted);" id="role-subtitle">Perfil Administrador</div>
+          </div>
+        </div>
+
+        <!-- Role Switcher: Admin vs Vendedor -->
+        <div class="role-switcher">
+          <button id="role-btn-admin" class="role-btn active" onclick="setAdminRole('admin')">Administrador</button>
+          <button id="role-btn-seller" class="role-btn" onclick="setAdminRole('seller')">Vendedor</button>
+        </div>
+
+        <button id="nav-sales" class="admin-nav-btn active" onclick="switchAdminTab('sales', this)">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Vendas & Faturamento</span>
+        </button>
+        <button id="nav-orders" class="admin-nav-btn" onclick="switchAdminTab('orders', this)">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span>Pedidos & Romaneio</span>
+        </button>
+        <button id="nav-products" class="admin-nav-btn" onclick="switchAdminTab('products', this)">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Produtos & Vídeos</span>
+        </button>
+        <button id="nav-stock" class="admin-nav-btn" onclick="switchAdminTab('stock', this)">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>Estoque por Grade</span>
+        </button>
+        <button id="nav-settings" class="admin-nav-btn" onclick="switchAdminTab('settings', this)">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Configurações</span>
+        </button>
+
+        <!-- Sidebar Filters (Visible only to Admin on Sales) -->
+        <div id="sidebar-sales-filters" class="admin-sb-filters">
+          <h4>Filtros de Vendas</h4>
+          <label for="filter-period">Período</label>
+          <select id="filter-period" onchange="renderAdminSales()">
+            <option value="7d">Últimos 7 dias</option>
+            <option value="today">Hoje</option>
+            <option value="30d">Últimos 30 dias</option>
+          </select>
+          <label for="filter-payment">Método de Pagamento</label>
+          <select id="filter-payment" onchange="renderAdminSales()">
+            <option value="all">Todos os métodos</option>
+            <option value="pix">Pix</option>
+            <option value="card">Cartão de Crédito</option>
+            <option value="boleto">Boleto / Link</option>
+          </select>
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <div class="role-banner" id="role-banner"></div>
+
+        <!-- TAB: SALES (ADMIN ONLY) -->
+        <div id="admin-tab-sales">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Faturamento no Período</div>
+              <div class="kpi-val" id="sales-kpi-rev">R$ 0,00</div>
+              <div class="kpi-trend">+18,4% vs período anterior</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Pedidos Pagos</div>
+              <div class="kpi-val" id="sales-kpi-orders">0</div>
+              <div class="kpi-trend" id="sales-kpi-pay-lbl">Todos os métodos</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Ticket Médio</div>
+              <div class="kpi-val" id="sales-kpi-ticket">R$ 0,00</div>
+              <div class="kpi-trend">Média atacado</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Carrinhos Fila BullMQ</div>
+              <div class="kpi-val" id="sales-kpi-bullmq">0</div>
+              <div class="kpi-trend">Lembrete automático ativo</div>
+            </div>
+          </div>
+
+          <div class="panel-card" style="margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+              <div>
+                <h3 style="font-size:15px;font-weight:700;">Faturamento & Vendas por Dia</h3>
+                <p style="font-size:12px;color:var(--text-muted);" id="chart-subtitle">Últimos 7 dias • Todos os métodos</p>
+              </div>
+            </div>
+            <div id="revenue-bars" class="bars-wrap"></div>
+          </div>
+
+          <div class="panel-card" style="margin-top:16px;">
+            <h3 style="font-size:15px;font-weight:700;">Detalhamento por Dia</h3>
+            <div style="overflow-x:auto;">
+              <table class="data-table" id="daily-sales-table"></table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: ORDERS & ROMANEIO -->
+        <div id="admin-tab-orders" class="hidden">
+          <div class="panel-card">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Pedidos & Impressão de Romaneio</h3>
+            <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;">
+              Atualize a etapa do pedido e imprima a etiqueta/romaneio para separação.
+            </p>
+            <div id="admin-orders-list"></div>
+          </div>
+        </div>
+
+        <!-- TAB: PRODUCTS & VIDEOS -->
+        <div id="admin-tab-products" class="hidden">
+          <div class="panel-card" style="margin-bottom:16px;" id="admin-add-product-box">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Cadastrar Produto (Foto + Vídeo MP4)</h3>
+            <form onsubmit="addDemoProduct(event)" class="inline-form">
+              <input id="new-prod-name" type="text" placeholder="Nome do produto" required />
+              <input id="new-prod-price" type="number" step="0.01" placeholder="Preço (ex: 24.90)" required />
+              <select id="new-prod-cat">
+                <option value="Elastano Básico">Elastano Básico</option>
+                <option value="Elastano Premium">Elastano Premium</option>
+                <option value="Linho Natural">Linho Natural</option>
+                <option value="Kit Casal">Kit Casal</option>
+                <option value="Calças Jogger">Calças Jogger</option>
+                <option value="Regatas">Regatas</option>
+              </select>
+              <input id="new-prod-video" type="text" placeholder="URL Vídeo .mp4 (opcional)" value="./assets/Shorts_Elastano_Premium_Bege.mp4" />
+              <button type="submit" class="btn-primary">Salvar na Vitrine</button>
+            </form>
+          </div>
+          <div class="panel-card">
+            <h3 style="font-size:15px;font-weight:700;">Catálogo de Produtos</h3>
+            <div style="overflow-x:auto;"><table class="data-table" id="admin-products-table"></table></div>
+          </div>
+        </div>
+
+        <!-- TAB: STOCK -->
+        <div id="admin-tab-stock" class="hidden">
+          <div class="panel-card">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:4px;">Estoque por Grade</h3>
+            <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px;">Disponibilidade por tamanho P, M, G e GG.</p>
+            <div style="overflow-x:auto;"><table class="data-table" id="admin-stock-table"></table></div>
+          </div>
+        </div>
+
+        <!-- TAB: SETTINGS -->
+        <div id="admin-tab-settings" class="hidden">
+          <div class="panel-card">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">Configurações da Loja</h3>
+            <div class="field">
+              <label>Notificação Global de Compras (Tempo Real SSE)</label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer;color:var(--text);">
+                <input type="checkbox" id="toggle-global-notif" checked onchange="toggleGlobalNotif(this.checked)" style="width:auto;" />
+                <span>Exibir alerta global quando uma venda for concluída</span>
+              </label>
+            </div>
+            <div class="field">
+              <label>Delay da Fila BullMQ (Carrinho Abandonado)</label>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <input id="bullmq-minutes" type="number" value="30" min="1" max="1440" style="max-width:100px;" />
+                <span style="font-size:12.5px;color:var(--text-muted);">minutos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 3: ARCHITECTURE (KEPT AS APPROVED, CLEAN LINE ICONS) -->
+  <div id="pres-arch" class="container hidden">
+    <div class="panel-card" style="margin-bottom:16px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Arquitetura & Infraestrutura — Diozz</h3>
+      <p style="font-size:13px;color:var(--text-muted);">
+        Stack pensada para carregamento rápido no mobile, suporte a vídeos/imagens via CDN e sincronização em 2 fases (API FácilZap -> Banco Próprio).
+      </p>
+    </div>
+
+    <div class="arch-diagram">
+      <div class="arch-box">
+        <span class="arch-badge">1. Front-end</span>
+        <h4>Next.js + TypeScript + Tailwind</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">
+          SSR/ISR para SEO, vitrine editorial minimalista, zoom nos cards, galeria com vídeo MP4 e persistência local do carrinho.
+        </p>
+      </div>
+      <div class="arch-box">
+        <span class="arch-badge">2. Back-end & Tempo Real</span>
+        <h4>Node.js + SSE / WebSockets</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">
+          Checkout enxuto (Nome + Telefone), geração de Romaneio em PDF, controle de acesso (Admin vs Vendedor) e notificação global.
+        </p>
+      </div>
+      <div class="arch-box">
+        <span class="arch-badge">3. Filas & Cache</span>
+        <h4>Redis + BullMQ</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">
+          Disparo automático via WhatsApp após X minutos se o cliente deixar peças no carrinho sem finalizar.
+        </p>
+      </div>
+      <div class="arch-box">
+        <span class="arch-badge">4. Mídia & Dados</span>
+        <h4>PostgreSQL + CDN (Vídeos/Fotos)</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">
+          Fase 1 conectada à <code>api.facilzap.app.br</code>; Fase 2 100% no PostgreSQL próprio com Cloud Storage para vídeos MP4.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON (BOTTOM RIGHT) -->
+  <button class="wa-float no-print" onclick="openWhatsAppDiozz()" title="Falar com a Diozz no WhatsApp">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0012.05 0C5.49 0 .16 5.33.16 11.89c0 2.1.55 4.15 1.59 5.96L0 24l6.33-1.66a11.83 11.83 0 005.72 1.46h.01c6.56 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.43-8.43zm-8.47 18.3a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.86 9.86 0 01-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 012.89 6.99c0 5.46-4.44 9.89-9.88 9.89zm5.42-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+    <span>Falar com a Diozz</span>
+  </button>
+
+  <!-- CART DRAWER -->
+  <div id="cart-overlay" class="overlay" onclick="if(event.target===this) closeCart()">
+    <div class="drawer">
+      <div class="drawer-head">
+        <div>
+          <strong style="font-size:15px;">Sacola de Compras</strong>
+          <div style="font-size:11px;color:var(--text-muted);">Salvo automaticamente no navegador</div>
+        </div>
+        <button onclick="closeCart()">
+          <svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="cart-body" class="drawer-body"></div>
+      <div id="cart-foot" class="drawer-foot"></div>
+    </div>
+  </div>
+
+  <!-- CLIENT ACCOUNT MODAL -->
+  <div id="account-modal" class="modal-center" onclick="if(event.target===this) closeModal('account-modal')">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <h3 style="font-size:17px;font-weight:700;">Minha Conta & Pedidos</h3>
+        <button onclick="closeModal('account-modal')">
+          <svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">
+        Informe seu WhatsApp para acompanhar a etapa atual do seu pedido.
+      </p>
+      <div class="inline-form" style="margin-bottom:16px;">
+        <input id="account-phone-lookup" type="tel" placeholder="(85) 99999-9999" />
+        <button class="btn-primary" onclick="renderClientOrders()">Consultar</button>
+      </div>
+      <div id="client-orders-container"></div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL (ONLY NAME & PHONE) -->
+  <div id="checkout-modal" class="modal-center" onclick="if(event.target===this) closeModal('checkout-modal')">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="font-size:17px;font-weight:700;">Finalizar Pedido</h3>
+        <button onclick="closeModal('checkout-modal')">
+          <svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">
+        Informe apenas seu <strong>Nome</strong> e <strong>Telefone (WhatsApp)</strong>.
+      </p>
+      <form onsubmit="submitCheckout(event)">
+        <div class="field"><label>Seu Nome *</label><input id="chk-name" type="text" placeholder="Ex: João Silva / Loja Silva" required /></div>
+        <div class="field"><label>WhatsApp (Telefone) *</label><input id="chk-phone" type="tel" placeholder="(85) 99999-9999" required /></div>
+        <div class="field">
+          <label>Método de Pagamento</label>
+          <select id="chk-payment">
+            <option value="pix">Pix</option>
+            <option value="card">Cartão de Crédito</option>
+            <option value="boleto">Boleto / Link</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Forma de Envio</label>
+          <select id="chk-delivery">
+            <option value="Excursão (Fortaleza/CE)">Excursão (Fortaleza/CE)</option>
+            <option value="Correios / Transportadora">Correios / Transportadora</option>
+            <option value="Retirada na Fábrica">Retirada na Loja / Fábrica</option>
+          </select>
+        </div>
+        <div id="chk-summary" style="background:var(--surface-soft);padding:12px;font-size:13px;margin-bottom:14px;"></div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:13px;">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ROMANEIO PRINT MODAL -->
+  <div id="romaneio-modal" class="modal-center" onclick="if(event.target===this) closeModal('romaneio-modal')">
+    <div class="modal-card" style="max-width:480px;">
+      <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <strong>Etiqueta / Romaneio</strong>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-primary" onclick="window.print()">Imprimir</button>
+          <button class="btn-secondary" onclick="closeModal('romaneio-modal')">Fechar</button>
+        </div>
+      </div>
+      <div id="romaneio-content" class="romaneio-sheet"></div>
+    </div>
+  </div>
+
+  <!-- GLOBAL PURCHASE TOAST -->
+  <div id="global-toast" class="global-toast no-print">
+    <img src="./assets/logo-diozz-selo.jpg" alt="Diozz" />
+    <div style="font-size:12px;line-height:1.35;">
+      <strong id="global-toast-title">Nova compra realizada</strong>
+      <div id="global-toast-desc" style="color:#b7b7b7;"></div>
+    </div>
+  </div>
+
+  <div id="micro-toast" class="micro-toast no-print"></div>
+
+  <script>
+    const CATEGORIES = ['Início', 'Novidades', 'Elastano Básico', 'Elastano Premium', 'Linho Natural', 'Kit Casal', 'Calças Jogger', 'Regatas'];
+
+    const ICO = {
+      eye: `<svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+      bag: `<svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+      heart: `<svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+      play: `<svg class="ico ico-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
+      download: `<svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+      chevLeft: `<svg class="ico ico-sm" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>`,
+      chevRight: `<svg class="ico ico-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>`,
+      plus: `<svg class="ico ico-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+      minus: `<svg class="ico ico-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+      msg: `<svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+      share: `<svg class="ico ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
+      printer: `<svg class="ico ico-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+      star: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+    };
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 'short-elastano-bege',
+        slug: 'shorts-elastano-premium-bege',
+        name: 'Shorts Elastano Premium Bege',
+        category: 'Elastano Premium',
+        tags: ['Com Vídeo', 'Destaque'],
+        price: 24.90,
+        visits: 342,
+        sales: 47,
+        stock: 310,
+        media: [
+          { type: 'image', src: './assets/short-elastano-bege.jpg', label: 'Foto Estúdio' },
+          { type: 'video', src: './assets/Shorts_Elastano_Premium_Bege.mp4', label: 'Vídeo Real' }
+        ],
+        sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Short em elastano premium com cós elástico reforçado, ilhós metálico, cordão com ponteira e bolsos laterais profundos.',
+        specs: { Tecido: 'Elastano Premium 4-Way', Bolsos: '2 Laterais + Traseiro', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [{ user: 'Loja Prime', q: 'O vídeo é da peça real sem filtro?', a: 'Sim, gravado em estúdio para mostrar o caimento real do tecido.' }],
+        reviews: [{ user: 'Rafael Atacado', city: 'Fortaleza/CE', rating: 5, comment: 'O vídeo me deu segurança para pedir 50 peças logo de início.' }]
+      },
+      {
+        id: 'regata-marrom',
+        slug: 'regata-marrom',
+        name: 'Regata Marrom',
+        category: 'Regatas',
+        tags: ['Destaque'],
+        price: 11.90,
+        visits: 162,
+        sales: 9,
+        stock: 240,
+        media: [{ type: 'image', src: './assets/regata-marrom.jpg', label: 'Frente Estúdio' }],
+        sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Regata masculina em malha macia com excelente caimento e costura reforçada. Ideal para revenda com alta margem.',
+        specs: { Tecido: 'Algodão Confort + Elastano', Modelagem: 'Regular Fit', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [{ user: 'Carlos V.', q: 'Posso misturar tamanhos P, M, G e GG?', a: 'Sim, basta selecionar a quantidade de cada tamanho abaixo.' }],
+        reviews: [{ user: 'Marcos Atacadista', city: 'Recife/PE', rating: 5, comment: 'Costura impecável e giro muito rápido.' }]
+      },
+      {
+        id: 'kit-casal-marinho',
+        slug: 'kit-casal-preto-marinho',
+        name: 'Kit Casal Marinho & Preto',
+        category: 'Kit Casal',
+        tags: ['Mais Vendido'],
+        price: 36.90,
+        visits: 298,
+        sales: 39,
+        stock: 140,
+        media: [{ type: 'image', src: './assets/kit-casal-marinho.jpg', label: 'Look Casal' }],
+        sizes: ['P/P', 'M/M', 'G/G', 'GG/GG'],
+        description: 'Combo casal em elastano premium com modelagem masculina e feminina coordenada.',
+        specs: { Tecido: 'Elastano Premium', Conteúdo: '2 Shorts (Casal)', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [],
+        reviews: [{ user: 'Ana Paula', city: 'Natal/RN', rating: 5, comment: 'Excelente saída em coleções sazonais.' }]
+      },
+      {
+        id: 'calca-jogger-preta',
+        slug: 'calca-jogger-preta-elastano',
+        name: 'Calça Jogger Preta Elastano',
+        category: 'Calças Jogger',
+        tags: ['Novidades'],
+        price: 44.90,
+        visits: 256,
+        sales: 28,
+        stock: 95,
+        media: [{ type: 'image', src: './assets/calca-jogger-preta.jpg', label: 'Frente Completa' }],
+        sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Calça jogger masculina preta com elastano, cordão contrastante e punho ajustado.',
+        specs: { Tecido: 'Sarja / Elastano', Punho: 'Elástico Ajustado', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [],
+        reviews: []
+      },
+      {
+        id: 'short-elastano-azul',
+        slug: 'short-elastano-basico-azul-royal',
+        name: 'Short Elastano Básico Azul Royal',
+        category: 'Elastano Básico',
+        tags: ['Essencial'],
+        price: 18.90,
+        visits: 410,
+        sales: 62,
+        stock: 420,
+        media: [{ type: 'image', src: './assets/short-elastano-azul.jpg', label: 'Detalhe Cordão' }],
+        sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Short básico azul royal com secagem rápida, costura dupla e ótimo custo-benefício.',
+        specs: { Tecido: 'Elastano Básico', Bolsos: '2 Laterais', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [],
+        reviews: []
+      },
+      {
+        id: 'short-praia-pink',
+        slug: 'short-praia-pink-elastano',
+        name: 'Short Praia Pink Verão',
+        category: 'Linho Natural',
+        tags: ['Novidades'],
+        price: 22.90,
+        visits: 189,
+        sales: 21,
+        stock: 18,
+        media: [{ type: 'image', src: './assets/short-praia-pink.jpg', label: 'Editorial Praia' }],
+        sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Short leve em tom pink vibrante para moda praia e coleções de verão.',
+        specs: { Tecido: 'Poliamida / Elastano', Estilo: 'Praia & Casual', Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [],
+        reviews: []
+      }
+    ];
+
+    const SALES_SERIES = {
+      today: [
+        { day: '09h', pix: 680, card: 240, boleto: 0, orders: 4 },
+        { day: '11h', pix: 1120, card: 480, boleto: 180, orders: 7 },
+        { day: '14h', pix: 890, card: 320, boleto: 0, orders: 5 },
+        { day: '16h', pix: 1450, card: 610, boleto: 290, orders: 9 }
+      ],
+      '7d': [
+        { day: 'Seg', pix: 2400, card: 980, boleto: 420, orders: 14 },
+        { day: 'Ter', pix: 3150, card: 1200, boleto: 310, orders: 18 },
+        { day: 'Qua', pix: 2890, card: 1450, boleto: 500, orders: 17 },
+        { day: 'Qui', pix: 4200, card: 1680, boleto: 640, orders: 24 },
+        { day: 'Sex', pix: 5120, card: 2150, boleto: 780, orders: 29 },
+        { day: 'Sáb', pix: 3780, card: 1320, boleto: 210, orders: 21 },
+        { day: 'Dom', pix: 1960, card: 740, boleto: 150, orders: 11 }
+      ],
+      '30d': [
+        { day: 'Sem 1', pix: 14200, card: 5800, boleto: 2100, orders: 78 },
+        { day: 'Sem 2', pix: 16900, card: 6400, boleto: 2450, orders: 92 },
+        { day: 'Sem 3', pix: 19400, card: 7900, boleto: 2900, orders: 108 },
+        { day: 'Sem 4', pix: 23500, card: 9520, boleto: 3010, orders: 134 }
+      ]
+    };
+
+    const STORAGE_KEY = 'diozz_mvp_state_v3';
+    let state = loadState();
+    let currentCategory = 'Início';
+    let currentProductId = null;
+    let currentMediaIdx = 0;
+    let globalNotifEnabled = true;
+    let adminRole = 'admin'; // 'admin' | 'seller'
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            products: parsed.products || DEFAULT_PRODUCTS,
+            cart: parsed.cart || {},
+            orders: parsed.orders || defaultOrders(),
+            lastPhone: parsed.lastPhone || '(85) 99812-3456'
+          };
+        }
+      } catch (e) {}
+      return { products: DEFAULT_PRODUCTS, cart: {}, orders: defaultOrders(), lastPhone: '(85) 99812-3456' };
+    }
+
+    function defaultOrders() {
+      return [
+        {
+          id: 'DZ-1042',
+          customerName: 'Loja Estilo Nordeste',
+          customerPhone: '(85) 99812-3456',
+          payment: 'pix',
+          delivery: 'Excursão (Maraponga Mart Moda)',
+          total: 498.00,
+          stage: 2,
+          createdAt: 'Hoje, 10:42',
+          items: [
+            { name: 'Shorts Elastano Premium Bege', size: 'M', qty: 10, price: 24.90 },
+            { name: 'Shorts Elastano Premium Bege', size: 'G', qty: 10, price: 24.90 }
+          ]
+        }
+      ];
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateHeaderCartBadge();
+    }
+
+    function formatBRL(v) {
+      return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function setTheme(themeName, btn) {
+      document.body.setAttribute('data-theme', themeName);
+      document.querySelectorAll('.theme-dot-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const labels = { noir: 'Preto Editorial', forest: 'Verde Floresta', coastal: 'Azul Marinho' };
+      showMicroToast(`Paleta: ${labels[themeName]}`);
+    }
+
+    function goHome() {
+      currentCategory = 'Início';
+      document.getElementById('search-input').value = '';
+      switchPresView('store', document.querySelector('.pres-tab'));
+      renderCategories();
+      goCatalog();
+      renderCatalog();
+    }
+
+    function getCartTotals() {
+      let qty = 0, total = 0;
+      const items = [];
+      for (const [key, entry] of Object.entries(state.cart)) {
+        if (entry.qty <= 0) continue;
+        const p = state.products.find(x => x.id === entry.productId);
+        if (!p) continue;
+        qty += entry.qty;
+        total += entry.qty * p.price;
+        items.push({ key, product: p, size: entry.size, qty: entry.qty });
+      }
+      return { qty, total, items };
+    }
+
+    function updateHeaderCartBadge() {
+      const { qty } = getCartTotals();
+      const el = document.getElementById('header-cart-count');
+      el.textContent = qty;
+      el.classList.remove('cart-bounce');
+      void el.offsetWidth;
+      el.classList.add('cart-bounce');
+    }
+
+    function renderCategories() {
+      document.getElementById('cat-list').innerHTML = CATEGORIES.map(cat => `
+        <button class="cat-link ${currentCategory === cat ? 'active' : ''}" onclick="selectCategory('${cat}')">${cat}</button>
+      `).join('');
+      document.getElementById('cat-cascade-menu').innerHTML = CATEGORIES.map(cat => `
+        <button class="cat-cascade-item ${currentCategory === cat ? 'active' : ''}" onclick="selectCategory('${cat}'); toggleCascade(false);">${cat}</button>
+      `).join('');
+      document.getElementById('quick-filters').innerHTML = ['Início', 'Elastano Premium', 'Elastano Básico', 'Kit Casal', 'Regatas'].map(cat => `
+        <button class="filter-btn ${currentCategory === cat ? 'active' : ''}" onclick="selectCategory('${cat}')">${cat === 'Início' ? 'Todos os itens' : cat}</button>
+      `).join('');
+    }
+
+    function scrollCats(px) { document.getElementById('cat-list').scrollBy({ left: px, behavior: 'smooth' }); }
+    function toggleCascade(force) {
+      const menu = document.getElementById('cat-cascade-menu');
+      if (typeof force === 'boolean') menu.classList.toggle('open', force);
+      else menu.classList.toggle('open');
+    }
+    function selectCategory(cat) {
+      currentCategory = cat;
+      renderCategories();
+      goCatalog();
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      const sort = document.getElementById('sort-select').value;
+      let filtered = state.products.filter(p => {
+        const matchCat = currentCategory === 'Início' || p.category === currentCategory || p.tags.includes(currentCategory);
+        const matchQuery = !q || p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+        return matchCat && matchQuery;
+      });
+      if (sort === 'price-asc') filtered = [...filtered].sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') filtered = [...filtered].sort((a, b) => b.price - a.price);
+
+      const grid = document.getElementById('catalog-grid');
+      if (!filtered.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-muted);">Nenhum produto encontrado.</div>';
+        return;
+      }
+      grid.innerHTML = filtered.map(p => {
+        const firstImg = p.media.find(m => m.type === 'image') || p.media[0];
+        const hasVideo = p.media.some(m => m.type === 'video');
+        return `
+          <div class="product-card" onclick="openProduct('${p.id}')">
+            <div class="card-img-wrap">
+              <img src="${firstImg.src}" alt="${p.name}" />
+              ${p.tags[0] ? `<span class="card-tag-top">${p.tags[0]}</span>` : ''}
+              <button class="card-fav-btn" onclick="event.stopPropagation(); showMicroToast('Salvo nos favoritos');" title="Favoritar">${ICO.heart}</button>
+              ${hasVideo ? `<span class="card-video-pill">${ICO.play} Vídeo</span>` : ''}
+            </div>
+            <div class="card-kicker">${p.category}</div>
+            <div class="card-brand">DIOZZ</div>
+            <div class="card-title">${p.name}</div>
+            <div class="card-price">${formatBRL(p.price)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function goCatalog() {
+      currentProductId = null;
+      document.getElementById('view-product').classList.add('hidden');
+      document.getElementById('view-catalog').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openProduct(productId) {
+      const p = state.products.find(x => x.id === productId);
+      if (!p) return;
+      p.visits += 1;
+      currentProductId = productId;
+      currentMediaIdx = 0;
+      saveState();
+      document.getElementById('view-catalog').classList.add('hidden');
+      document.getElementById('view-product').classList.remove('hidden');
+      renderProductDetail();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderProductDetail() {
+      const p = state.products.find(x => x.id === currentProductId);
+      if (!p) return;
+      const activeMedia = p.media[currentMediaIdx] || p.media[0];
+      const related = state.products.filter(x => x.id !== p.id).slice(0, 4);
+      const prodCartQty = p.sizes.reduce((acc, s) => acc + ((state.cart[`${p.id}__${s}`] || {}).qty || 0), 0);
+
+      document.getElementById('view-product').innerHTML = `
+        <button class="breadcrumb" onclick="goCatalog()">${ICO.chevLeft} Voltar para o catálogo</button>
+
+        <div class="product-layout">
+          <div class="gallery-wrap">
+            <div class="thumbs-col">
+              ${p.media.map((m, idx) => `
+                <button class="thumb-btn ${idx === currentMediaIdx ? 'active' : ''}" onclick="setMedia(${idx})">
+                  ${m.type === 'video'
+                    ? `<video src="${m.src}" muted></video><span class="thumb-play">${ICO.play}</span>`
+                    : `<img src="${m.src}" alt="${m.label}" />`}
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="main-photo-box">
+              ${activeMedia.type === 'video'
+                ? `<video src="${activeMedia.src}" controls autoplay muted loop playsinline></video>`
+                : `<img src="${activeMedia.src}" alt="${p.name}" />`}
+              ${p.media.length > 1 ? `
+                <button class="gallery-arrow prev" onclick="stepMedia(-1)">${ICO.chevLeft}</button>
+                <button class="gallery-arrow next" onclick="stepMedia(1)">${ICO.chevRight}</button>
+              ` : ''}
+              <button class="download-photo-btn" title="Baixar mídia" onclick="showMicroToast('Mídia baixada para divulgação')">${ICO.download}</button>
+            </div>
+          </div>
+
+          <div class="product-info-col">
+            <div class="slug-top-row">
+              <div>
+                <div class="slug-brand">DIOZZ</div>
+                <h1 class="slug-title">${p.name}</h1>
+              </div>
+              <button onclick="showMicroToast('Salvo nos favoritos')" title="Favoritar" style="padding:6px;">${ICO.heart}</button>
+            </div>
+
+            <div class="slug-metrics">
+              <span>${ICO.eye} ${p.visits} visitas</span>
+              <span>${ICO.bag} ${p.sales} vendas</span>
+            </div>
+
+            <div class="slug-price">${formatBRL(p.price)}</div>
+            <div class="slug-installment">Atacado • 11x de ${formatBRL((p.price * 1.15) / 11)} no cartão</div>
+
+            <div class="size-header-row">
+              <strong style="font-size:12.5px;">Selecione as variações (+ / -)</strong>
+              <button class="size-guide-link" onclick="showMicroToast('Tabela de medidas P / M / G / GG')">Guia de tamanhos</button>
+            </div>
+
+            <div class="variations-list">
+              ${p.sizes.map(size => {
+                const qty = (state.cart[`${p.id}__${size}`] || {}).qty || 0;
+                return `
+                  <div class="var-row ${qty > 0 ? 'in-cart' : ''}">
+                    <div><span class="var-size">Tamanho ${size}</span><span class="var-sub">${formatBRL(p.price)}</span></div>
+                    <div class="qty-control">
+                      <button class="qty-btn" onclick="changeVarQty('${p.id}', '${size}', -1)">${ICO.minus}</button>
+                      <div class="qty-num" id="qty-num-${size}">${qty}</div>
+                      <button class="qty-btn plus" onclick="changeVarQty('${p.id}', '${size}', 1)">${ICO.plus}</button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            ${prodCartQty > 0 ? `
+              <button class="cta-bag-btn" onclick="openCart()">
+                ${ICO.bag}
+                <span>Ver Sacola (${prodCartQty} un. · ${formatBRL(prodCartQty * p.price)})</span>
+              </button>
+            ` : ''}
+
+            <div class="social-action-bar">
+              <button onclick="document.getElementById('sec-qa').scrollIntoView({behavior:'smooth'})">${ICO.msg} Perguntas (${p.questions.length})</button>
+              <button onclick="showMicroToast('Link /${p.slug} copiado')">${ICO.share} Compartilhar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-sections">
+          <div class="detail-block">
+            <h3>Descrição do Produto</h3>
+            <p style="font-size:13.5px;color:var(--text-muted);max-width:780px;">${p.description}</p>
+            <div class="spec-grid">
+              ${Object.entries(p.specs).map(([k, v]) => `<div class="spec-item"><span>${k}</span><strong>${v}</strong></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="detail-block" id="sec-qa">
+            <h3>Perguntas e Respostas (${p.questions.length})</h3>
+            ${p.questions.length ? p.questions.map(item => `
+              <div class="qa-item"><div class="qa-q">${item.user}: "${item.q}"</div><div class="qa-a"><strong>Diozz:</strong> ${item.a}</div></div>
+            `).join('') : '<p style="font-size:13px;color:var(--text-muted);">Nenhuma pergunta ainda.</p>'}
+            <form class="inline-form" onsubmit="addQuestion(event, '${p.id}')">
+              <input id="q-input" type="text" placeholder="Escreva sua dúvida sobre tecido, medidas ou estoque..." required />
+              <button type="submit" class="btn-primary">Enviar Pergunta</button>
+            </form>
+          </div>
+
+          <div class="detail-block">
+            <h3>Avaliações de Clientes (${p.reviews.length})</h3>
+            ${p.reviews.length ? p.reviews.map(r => `
+              <div class="review-item">
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+                  <strong>${r.user} <span style="font-weight:400;color:var(--text-muted);">(${r.city})</span></strong>
+                  <span style="display:inline-flex;gap:2px;color:#111;">${ICO.star.repeat(r.rating)}</span>
+                </div>
+                <p style="font-size:13px;color:var(--text-muted);">${r.comment}</p>
+              </div>
+            `).join('') : '<p style="font-size:13px;color:var(--text-muted);">Ainda sem avaliações para este item.</p>'}
+            <form class="inline-form" onsubmit="addReview(event, '${p.id}')">
+              <input id="rev-name" type="text" placeholder="Seu Nome / Loja" required style="max-width:180px;" />
+              <input id="rev-comment" type="text" placeholder="Comentário sobre a compra..." required />
+              <select id="rev-rating" style="max-width:110px;"><option value="5">5 estrelas</option><option value="4">4 estrelas</option></select>
+              <button type="submit" class="btn-primary">Avaliar</button>
+            </form>
+          </div>
+
+          <div class="detail-block">
+            <h3>Produtos Relacionados</h3>
+            <div class="catalog-grid" style="margin-top:14px;">
+              ${related.map(rp => {
+                const img = rp.media.find(m => m.type === 'image') || rp.media[0];
+                return `
+                  <div class="product-card" onclick="openProduct('${rp.id}')">
+                    <div class="card-img-wrap"><img src="${img.src}" alt="${rp.name}" /></div>
+                    <div class="card-brand">DIOZZ</div>
+                    <div class="card-title">${rp.name}</div>
+                    <div class="card-price">${formatBRL(rp.price)}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function setMedia(idx) { currentMediaIdx = idx; renderProductDetail(); }
+    function stepMedia(delta) {
+      const p = state.products.find(x => x.id === currentProductId);
+      if (!p) return;
+      currentMediaIdx = (currentMediaIdx + delta + p.media.length) % p.media.length;
+      renderProductDetail();
+    }
+
+    function changeVarQty(productId, size, delta) {
+      const p = state.products.find(x => x.id === productId);
+      if (!p) return;
+      const key = `${productId}__${size}`;
+      const cur = (state.cart[key] || {}).qty || 0;
+      const next = Math.max(0, cur + delta);
+      if (next === 0) delete state.cart[key];
+      else state.cart[key] = { productId, size, qty: next };
+      saveState();
+
+      if (currentProductId === productId) {
+        renderProductDetail();
+        const numEl = document.getElementById(`qty-num-${size}`);
+        if (numEl) { numEl.classList.remove('pop-anim'); void numEl.offsetWidth; numEl.classList.add('pop-anim'); }
+      }
+      renderCartDrawer();
+      if (delta > 0) showMicroToast(`+1 ${p.name} (${size}) na sacola`);
+      else if (cur > 0) showMicroToast(`−1 ${p.name} (${size}) atualizado`);
+    }
+
+    function addQuestion(e, prodId) {
+      e.preventDefault();
+      const val = document.getElementById('q-input').value.trim();
+      const p = state.products.find(x => x.id === prodId);
+      if (!p || !val) return;
+      p.questions.unshift({ user: 'Visitante', q: val, a: 'Pergunta registrada! Nossa equipe responderá em breve.' });
+      saveState(); renderProductDetail(); showMicroToast('Pergunta publicada');
+    }
+    function addReview(e, prodId) {
+      e.preventDefault();
+      const name = document.getElementById('rev-name').value.trim();
+      const comment = document.getElementById('rev-comment').value.trim();
+      const rating = Number(document.getElementById('rev-rating').value);
+      const p = state.products.find(x => x.id === prodId);
+      if (!p || !name || !comment) return;
+      p.reviews.unshift({ user: name, city: 'Cliente Verificado', rating, comment });
+      saveState(); renderProductDetail(); showMicroToast('Avaliação publicada');
+    }
+
+    /* Cart & Checkout */
+    function openCart() { renderCartDrawer(); document.getElementById('cart-overlay').classList.add('open'); }
+    function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); }
+    function renderCartDrawer() {
+      const { qty, total, items } = getCartTotals();
+      const body = document.getElementById('cart-body');
+      const foot = document.getElementById('cart-foot');
+      if (!items.length) {
+        body.innerHTML = `<div style="text-align:center;padding:56px 12px;color:var(--text-muted);"><strong>Sua sacola está vazia</strong><p style="font-size:13px;margin-top:6px;">Clique em + nas variações dos produtos para adicionar.</p></div>`;
+        foot.innerHTML = ''; return;
+      }
+      body.innerHTML = items.map(it => {
+        const img = it.product.media.find(m => m.type === 'image') || it.product.media[0];
+        return `
+          <div class="cart-item">
+            <img src="${img.src}" />
+            <div style="flex:1;"><div style="font-size:13px;font-weight:700;">${it.product.name}</div><div style="font-size:12px;color:var(--text-muted);">Tamanho ${it.size} · ${formatBRL(it.product.price)}</div></div>
+            <div class="qty-control">
+              <button class="qty-btn" style="width:26px;height:26px;" onclick="changeVarQty('${it.product.id}', '${it.size}', -1)">${ICO.minus}</button>
+              <span style="font-weight:700;font-size:13px;min-width:18px;text-align:center;">${it.qty}</span>
+              <button class="qty-btn plus" style="width:26px;height:26px;" onclick="changeVarQty('${it.product.id}', '${it.size}', 1)">${ICO.plus}</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      foot.innerHTML = `
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--text-muted);"><span>Total de peças:</span><strong>${qty} un.</strong></div>
+        <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:14px;"><span>Subtotal:</span><span>${formatBRL(total)}</span></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:13px;" onclick="openCheckout()">Finalizar Pedido</button>
+      `;
+    }
+
+    function openCheckout() {
+      closeCart();
+      const { qty, total } = getCartTotals();
+      document.getElementById('chk-summary').innerHTML = `<strong>Resumo:</strong> ${qty} peça(s) · Total: <strong>${formatBRL(total)}</strong>`;
+      document.getElementById('checkout-modal').classList.add('open');
+    }
+
+    function submitCheckout(e) {
+      e.preventDefault();
+      const name = document.getElementById('chk-name').value.trim();
+      const phone = document.getElementById('chk-phone').value.trim();
+      const payment = document.getElementById('chk-payment').value;
+      const delivery = document.getElementById('chk-delivery').value;
+      const { qty, total, items } = getCartTotals();
+      if (!items.length) return;
+
+      const orderId = 'DZ-' + Math.floor(1050 + Math.random() * 8900);
+      state.orders.unshift({
+        id: orderId, customerName: name, customerPhone: phone, payment, delivery, total, stage: 0, createdAt: 'Agora mesmo',
+        items: items.map(it => ({ name: it.product.name, size: it.size, qty: it.qty, price: it.product.price }))
+      });
+      items.forEach(it => { it.product.sales += it.qty; it.product.stock = Math.max(0, it.product.stock - it.qty); });
+      state.cart = {};
+      state.lastPhone = phone;
+      saveState();
+      if (currentProductId) renderProductDetail();
+      renderCatalog();
+      closeModal('checkout-modal');
+      triggerGlobalToast(name, `${qty} peça(s) · agora mesmo`);
+      openAccountModal();
+      showMicroToast(`Pedido ${orderId} registrado`);
+    }
+
+    const STAGES = ['1. Recebido', '2. Pago', '3. Em Separação', '4. Despachado'];
+    function openAccountModal() {
+      document.getElementById('account-phone-lookup').value = state.lastPhone || '';
+      renderClientOrders();
+      document.getElementById('account-modal').classList.add('open');
+    }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function renderClientOrders() {
+      const phoneFilter = (document.getElementById('account-phone-lookup').value || '').replace(/\D/g, '');
+      const list = state.orders.filter(o => !phoneFilter || o.customerPhone.replace(/\D/g, '').includes(phoneFilter));
+      document.getElementById('client-orders-container').innerHTML = list.length ? list.map(o => `
+        <div style="border:1px solid var(--border);padding:14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">
+            <strong>Pedido #${o.id}</strong><strong>${formatBRL(o.total)}</strong>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);">${o.customerName} · ${o.delivery} · ${o.createdAt}</div>
+          <div class="timeline">${STAGES.map((label, idx) => `<div class="step-box ${idx <= o.stage ? 'done' : ''}">${label}</div>`).join('')}</div>
+        </div>
+      `).join('') : '<p style="font-size:13px;color:var(--text-muted);">Nenhum pedido encontrado.</p>';
+    }
+
+    /* ADMIN PANEL WITH 2 ROLES (ADMIN vs VENDEDOR) */
+    function setAdminRole(role) {
+      adminRole = role;
+      document.getElementById('role-btn-admin').classList.toggle('active', role === 'admin');
+      document.getElementById('role-btn-seller').classList.toggle('active', role === 'seller');
+      const isSeller = role === 'seller';
+
+      document.getElementById('role-subtitle').textContent = isSeller ? 'Perfil Vendedor (Restrito)' : 'Perfil Administrador';
+      document.getElementById('nav-sales').classList.toggle('hidden', isSeller);
+      document.getElementById('nav-settings').classList.toggle('hidden', isSeller);
+      document.getElementById('sidebar-sales-filters').classList.toggle('hidden', isSeller);
+      document.getElementById('admin-add-product-box').classList.toggle('hidden', isSeller);
+
+      document.getElementById('role-banner').innerHTML = isSeller
+        ? `<span><strong>Modo Vendedor:</strong> Acesso operacional a Pedidos, Romaneio, Produtos e Estoque. <em>Dados de faturamento ocultos por permissão.</em></span>`
+        : `<span><strong>Modo Administrador:</strong> Acesso completo a Faturamento, Gráficos, Pedidos, Produtos, Estoque e Configurações.</span>`;
+
+      if (isSeller) {
+        switchAdminTab('orders', document.getElementById('nav-orders'));
+      } else {
+        switchAdminTab('sales', document.getElementById('nav-sales'));
+      }
+    }
+
+    function switchAdminTab(tab, btn) {
+      if (adminRole === 'seller' && (tab === 'sales' || tab === 'settings')) tab = 'orders';
+      document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      ['sales', 'orders', 'products', 'stock', 'settings'].forEach(t => {
+        document.getElementById(`admin-tab-${t}`).classList.toggle('hidden', t !== tab);
+      });
+      if (tab === 'sales') renderAdminSales();
+      if (tab === 'orders') renderAdminOrders();
+      if (tab === 'products') renderAdminProducts();
+      if (tab === 'stock') renderAdminStock();
+    }
+
+    function renderAdminSales() {
+      if (adminRole === 'seller') return;
+      const period = document.getElementById('filter-period').value;
+      const pay = document.getElementById('filter-payment').value;
+      const rows = SALES_SERIES[period] || SALES_SERIES['7d'];
+      const payLabels = { all: 'Todos os métodos', pix: 'Pix', card: 'Cartão de Crédito', boleto: 'Boleto / Link' };
+      const periodLabels = { today: 'Hoje', '7d': 'Últimos 7 dias', '30d': 'Últimos 30 dias' };
+
+      const computed = rows.map(r => {
+        const rev = pay === 'all' ? (r.pix + r.card + r.boleto) : r[pay];
+        const ord = pay === 'all' ? r.orders : Math.max(1, Math.round(r.orders * (rev / (r.pix + r.card + r.boleto))));
+        return { day: r.day, rev, orders: ord };
+      });
+      const totalRev = computed.reduce((a, b) => a + b.rev, 0);
+      const totalOrders = computed.reduce((a, b) => a + b.orders, 0);
+      const maxRev = Math.max(1, ...computed.map(x => x.rev));
+      const { qty } = getCartTotals();
+
+      document.getElementById('sales-kpi-rev').textContent = formatBRL(totalRev);
+      document.getElementById('sales-kpi-orders').textContent = totalOrders;
+      document.getElementById('sales-kpi-pay-lbl').textContent = payLabels[pay];
+      document.getElementById('sales-kpi-ticket').textContent = formatBRL(totalOrders ? totalRev / totalOrders : 0);
+      document.getElementById('sales-kpi-bullmq').textContent = qty > 0 ? 1 : 0;
+      document.getElementById('chart-subtitle').textContent = `${periodLabels[period]} • ${payLabels[pay]}`;
+
+      document.getElementById('revenue-bars').innerHTML = computed.map(c => {
+        const hPct = Math.max(6, Math.round((c.rev / maxRev) * 100));
+        return `
+          <div class="bar-col" title="${c.day}: ${formatBRL(c.rev)} (${c.orders} pedidos)">
+            <span class="bar-val-lbl">${formatBRL(c.rev).replace('R$ ', '')}</span>
+            <div class="bar-fill" style="height:${hPct}%;"></div>
+            <span class="bar-day-lbl">${c.day}</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('daily-sales-table').innerHTML = `
+        <thead><tr><th>Período</th><th>Pedidos</th><th>Faturamento</th><th>Ticket Médio</th></tr></thead>
+        <tbody>
+          ${computed.map(c => `
+            <tr>
+              <td><strong>${c.day}</strong></td>
+              <td>${c.orders}</td>
+              <td><strong>${formatBRL(c.rev)}</strong></td>
+              <td>${formatBRL(c.orders ? c.rev / c.orders : 0)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+    }
+
+    function renderAdminOrders() {
+      const isSeller = adminRole === 'seller';
+      document.getElementById('admin-orders-list').innerHTML = state.orders.map(o => `
+        <div style="border:1px solid var(--border);padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div>
+            <strong>#${o.id} — ${o.customerName}</strong>
+            <div style="font-size:12px;color:var(--text-muted);">${o.customerPhone} · ${o.delivery} ${isSeller ? '' : `· <strong>${formatBRL(o.total)}</strong>`}</div>
+            <div style="font-size:12px;margin-top:4px;font-weight:600;">Etapa: ${STAGES[o.stage]}</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <select onchange="setOrderStage('${o.id}', this.value)" style="padding:8px 10px;border:1px solid var(--border);font-size:12px;font-weight:600;">
+              ${STAGES.map((st, idx) => `<option value="${idx}" ${o.stage === idx ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+            <button class="btn-primary" onclick="openRomaneio('${o.id}')">${ICO.printer} Romaneio</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setOrderStage(orderId, stageIdx) {
+      const o = state.orders.find(x => x.id === orderId);
+      if (!o) return;
+      o.stage = Number(stageIdx);
+      saveState(); renderAdminOrders();
+      showMicroToast(`Etapa de #${orderId} atualizada para "${STAGES[o.stage]}"`);
+    }
+
+    function renderAdminProducts() {
+      document.getElementById('admin-products-table').innerHTML = `
+        <thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Mídia</th></tr></thead>
+        <tbody>
+          ${state.products.map(p => {
+            const hasVid = p.media.some(m => m.type === 'video');
+            return `
+              <tr>
+                <td><strong>${p.name}</strong></td>
+                <td>${p.category}</td>
+                <td><strong>${formatBRL(p.price)}</strong></td>
+                <td>${p.media.length} arquivo(s) ${hasVid ? '(com vídeo)' : '(fotos)'}</td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      `;
+    }
+
+    function renderAdminStock() {
+      const isSeller = adminRole === 'seller';
+      document.getElementById('admin-stock-table').innerHTML = `
+        <thead><tr><th>Produto</th><th>Grade</th><th>Estoque</th><th>Status</th>${isSeller ? '' : '<th>Ajuste</th>'}</tr></thead>
+        <tbody>
+          ${state.products.map(p => `
+            <tr>
+              <td><strong>${p.name}</strong></td>
+              <td>${p.sizes.join(' / ')}</td>
+              <td><strong>${p.stock}</strong> un.</td>
+              <td>${p.stock < 30 ? '<span class="badge-status badge-warn">Baixo</span>' : '<span class="badge-status">Normal</span>'}</td>
+              ${isSeller ? '' : `
+                <td>
+                  <button class="btn-secondary" style="padding:4px 9px;" onclick="adjustStock('${p.id}', -10)">-10</button>
+                  <button class="btn-secondary" style="padding:4px 9px;" onclick="adjustStock('${p.id}', 10)">+10</button>
+                </td>
+              `}
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+    }
+
+    function adjustStock(id, delta) {
+      const p = state.products.find(x => x.id === id);
+      if (!p) return;
+      p.stock = Math.max(0, p.stock + delta);
+      saveState(); renderAdminStock();
+      showMicroToast(`Estoque de ${p.name}: ${p.stock} un.`);
+    }
+
+    function addDemoProduct(e) {
+      e.preventDefault();
+      const name = document.getElementById('new-prod-name').value.trim();
+      const price = parseFloat(document.getElementById('new-prod-price').value);
+      const cat = document.getElementById('new-prod-cat').value;
+      const vid = document.getElementById('new-prod-video').value.trim();
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const media = [{ type: 'image', src: './assets/short-elastano-bege.jpg', label: 'Foto Principal' }];
+      if (vid) media.push({ type: 'video', src: vid, label: 'Vídeo Produto' });
+
+      state.products.unshift({
+        id: slug + '-' + Date.now(), slug, name, category: cat, tags: [vid ? 'Com Vídeo' : 'Novo'],
+        price, visits: 1, sales: 0, stock: 120, media, sizes: ['P', 'M', 'G', 'GG'],
+        description: 'Produto cadastrado pelo Painel Diozz com suporte a vídeo.',
+        specs: { Categoria: cat, Grade: 'P ao GG', Origem: 'Fábrica Fortaleza/CE' },
+        questions: [], reviews: []
+      });
+      saveState(); renderCatalog(); renderAdminProducts(); e.target.reset();
+      showMicroToast('Produto adicionado na vitrine');
+    }
+
+    function openRomaneio(orderId) {
+      const o = state.orders.find(x => x.id === orderId);
+      if (!o) return;
+      const totalPcs = o.items.reduce((a, b) => a + b.qty, 0);
+      document.getElementById('romaneio-content').innerHTML = `
+        <div style="text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:10px;">
+          <strong style="font-size:18px;letter-spacing:2px;">DIOZZ ATACADO</strong><br/><span>ROMANEIO DE SEPARAÇÃO & ETIQUETA</span>
+        </div>
+        <div><strong>PEDIDO:</strong> #${o.id} &nbsp;|&nbsp; <strong>DATA:</strong> ${o.createdAt}</div>
+        <div><strong>CLIENTE:</strong> ${o.customerName}</div>
+        <div><strong>WHATSAPP:</strong> ${o.customerPhone}</div>
+        <div><strong>ENVIO:</strong> ${o.delivery}</div>
+        <hr style="margin:10px 0;border:none;border-top:1px dashed #000;" />
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead><tr style="border-bottom:1px solid #000;text-align:left;"><th>ITEM</th><th>TAM</th><th>QTD</th></tr></thead>
+          <tbody>${o.items.map(it => `<tr><td>${it.name}</td><td>${it.size}</td><td>${it.qty}</td></tr>`).join('')}</tbody>
+        </table>
+        <hr style="margin:10px 0;border:none;border-top:1px dashed #000;" />
+        <div style="display:flex;justify-content:space-between;font-size:14px;"><strong>TOTAL PEÇAS: ${totalPcs}</strong></div>
+      `;
+      document.getElementById('romaneio-modal').classList.add('open');
+    }
+
+    /* Controls & Toasts */
+    function switchPresView(view, btn) {
+      document.querySelectorAll('.pres-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('pres-store').classList.toggle('hidden', view !== 'store');
+      document.getElementById('pres-admin').classList.toggle('hidden', view !== 'admin');
+      document.getElementById('pres-arch').classList.toggle('hidden', view !== 'arch');
+      if (view === 'admin') setAdminRole(adminRole);
+    }
+
+    function setViewport(mode) {
+      const wrap = document.getElementById('pres-store');
+      document.getElementById('btn-desktop').classList.toggle('active', mode === 'desktop');
+      document.getElementById('btn-mobile').classList.toggle('active', mode === 'mobile');
+      wrap.classList.toggle('mobile-sim', mode === 'mobile');
+    }
+
+    function openWhatsAppDiozz() {
+      showMicroToast('Abrindo WhatsApp Diozz...');
+      window.open('https://wa.me/5585999999999?text=Ol%C3%A1%20Diozz!%20Gostaria%20de%20atendimento%20no%20atacado.', '_blank');
+    }
+
+    let microTimer = null;
+    function showMicroToast(msg) {
+      const el = document.getElementById('micro-toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(microTimer);
+      microTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    function toggleGlobalNotif(checked) {
+      globalNotifEnabled = checked;
+      showMicroToast(checked ? 'Notificação global ativada' : 'Notificação global pausada');
+    }
+
+    const DEMO_SOCIAL_EVENTS = [
+      ['Lucas M. (Fortaleza/CE)', 'comprou 20 peças de Elastano Premium · há 1 min'],
+      ['Multimarcas Silva (Recife/PE)', 'fechou um pedido no atacado · há 3 min'],
+      ['Fernanda R. (Teresina/PI)', 'comprou 15 Shorts Azul Royal · agora mesmo']
+    ];
+    let socialIdx = 0;
+    function triggerGlobalToast(title, desc) {
+      if (!globalNotifEnabled) return;
+      document.getElementById('global-toast-title').textContent = `${title} acabou de comprar`;
+      document.getElementById('global-toast-desc').textContent = desc;
+      const el = document.getElementById('global-toast');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 4500);
+    }
+    setInterval(() => {
+      if (!document.getElementById('pres-store').classList.contains('hidden')) {
+        const ev = DEMO_SOCIAL_EVENTS[socialIdx % DEMO_SOCIAL_EVENTS.length];
+        socialIdx++;
+        triggerGlobalToast(ev[0], ev[1]);
+      }
+    }, 15000);
+
+    renderCategories();
+    renderCatalog();
+    updateHeaderCartBadge();
+    setTimeout(() => triggerGlobalToast(DEMO_SOCIAL_EVENTS[0][0], DEMO_SOCIAL_EVENTS[0][1]), 2200);
+  </script>
+</body>
+</html>

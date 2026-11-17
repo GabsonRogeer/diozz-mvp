@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>DIOZZ Atacado — Apresentação Técnica & MVP</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm 14mm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      color: #141916;
+      background: #fff;
+      line-height: 1.45;
+      font-size: 11.5px;
+    }
+    .page {
+      page-break-after: always;
+      padding: 4px 0;
+    }
+    .page:last-child { page-break-after: auto; }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f5c2e;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .brand { font-size: 20px; font-weight: 900; letter-spacing: 0.08em; color: #0b0e0c; }
+    .brand small { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0; color: #5d6861; }
+    .doc-tag {
+      background: #eaf5ee;
+      color: #0f5c2e;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .cover-hero {
+      background: linear-gradient(135deg, #0d1611 0%, #0f5c2e 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 28px 26px;
+      margin-bottom: 18px;
+    }
+    .cover-hero h1 { font-size: 24px; font-weight: 900; margin-bottom: 8px; line-height: 1.2; }
+    .cover-hero p { font-size: 12.5px; color: #d5e8dc; max-width: 92%; }
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .pill {
+      background: rgba(255,255,255,0.14);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f5c2e;
+      margin: 14px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h3 { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; color: #141916; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+    .card {
+      border: 1px solid #dfe6e1;
+      border-radius: 10px;
+      padding: 12px;
+      background: #fafcfb;
+    }
+    .card.accent {
+      border-color: #0f5c2e;
+      background: #f4faf6;
+    }
+    .card p, .card li { font-size: 10.8px; color: #3c4740; }
+    .card ul { padding-left: 15px; margin-top: 4px; }
+    .card li { margin-bottom: 3px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px;
+      font-size: 10.5px;
+    }
+    th, td {
+      border: 1px solid #dfe6e1;
+      padding: 7px 9px;
+      text-align: left;
+    }
+    th { background: #eaf5ee; color: #0f5c2e; font-weight: 800; }
+
+    .arch-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+    .arch-node {
+      flex: 1;
+      border: 1.5px solid #0f5c2e;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+      text-align: center;
+    }
+    .arch-node strong { display: block; font-size: 11px; color: #0f5c2e; margin-bottom: 4px; }
+    .arch-node span { font-size: 9.8px; color: #4a554e; }
+    .arrow { display: flex; align-items: center; font-weight: 900; color: #0f5c2e; font-size: 16px; }
+
+    .img-frame {
+      border: 1px solid #dfe6e1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      padding: 6px;
+    }
+    .img-frame img { width: 100%; height: auto; border-radius: 6px; display: block; }
+    .img-cap { font-size: 9.5px; color: #5d6861; margin-top: 5px; text-align: center; font-weight: 600; }
+
+    .romaneio-box {
+      border: 1.5px dashed #141916;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      background: #fff;
+    }
+    .footer-note {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid #e5ebe7;
+      font-size: 9.5px;
+      color: #6b766f;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PÁGINA 1: VISÃO EXECUTIVA & STACK -->
+  <div class="page">
+    <div class="header-bar">
+      <div class="brand">DIOZZ <small>Loja de roupas para atacado · Fortaleza/CE</small></div>
+      <div class="doc-tag">Proposta Arquitetural & MVP Visual</div>
+    </div>
+
+    <div class="cover-hero">
+      <h1>Plataforma Própria Mobile-First & Minimalista para Atacado</h1>
+      <p>
+        Evolução do catálogo atual (<code>facilzap.app.br/diozz</code>) para uma estrutura proprietária de alta velocidade,
+        com sincronização inicial via API da FácilZap (Fase 1) e independência total com Painel Configurável e Romaneio (Fase 2).
+      </p>
+      <div class="pill-row">
+        <span class="pill">Next.js + TypeScript + Tailwind</span>
+        <span class="pill">Node.js API</span>
+        <span class="pill">Redis + BullMQ (Filas)</span>
+        <span class="pill">PostgreSQL</span>
+        <span class="pill">Notificações em Tempo Real</span>
+      </div>
+    </div>
+
+    <h2>1. Estratégia em 2 Fases (Zero Atrito Operacional)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>O que é entregue</th>
+          <th>Fonte de Dados</th>
+          <th>Benefício para a Diozz</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fase 1</strong><br/>Vitrine Híbrida</td>
+          <td>Novo catálogo mobile-first, slug com + / - direto no carrinho, carrinho persistente, notificação global e recuperação de carrinho via BullMQ.</td>
+          <td><strong>API FácilZap + Webhooks</strong> com cache em Redis</td>
+          <td>A equipe não muda nada na rotina atual enquanto a loja já ganha velocidade, SEO e mais conversão.</td>
+        </tr>
+        <tr>
+          <td><strong>Fase 2</strong><br/>Sistema Próprio</td>
+          <td>Painel Administrativo configurável, cadastro de produtos/categorias, estoque próprio, etapas de pedido e impressão de Etiqueta/Romaneio.</td>
+          <td><strong>PostgreSQL Próprio</strong> (migração assistida)</td>
+          <td>Elimina mensalidades/limites da FácilZap e entrega controle absoluto para os funcionários.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>2. Stack Tecnológica & Infraestrutura</h2>
+    <div class="grid-3">
+      <div class="card accent">
+        <h3>Front-end Mobile-First</h3>
+        <ul>
+          <li><strong>Next.js (App Router) + TS:</strong> Carregamento instantâneo no 4G e URLs amigáveis para SEO no Google.</li>
+          <li><strong>Tailwind CSS:</strong> Design minimalista, limpo e micro-animações fluidas ao editar o carrinho.</li>
+          <li><strong>Zustand + localStorage:</strong> Carrinho salvo mesmo fechando o navegador.</li>
+        </ul>
+      </div>
+      <div class="card accent">
+        <h3>Back-end & Tempo Real</h3>
+        <ul>
+          <li><strong>Node.js (Fastify/NestJS):</strong> API escalável para alto volume de acessos simultâneos.</li>
+          <li><strong>SSE / WebSockets:</strong> Dispara a <em>Notificação Global</em> sempre que uma venda acontece.</li>
+          <li><strong>Checkout Enxuto:</strong> Solicita apenas Nome e WhatsApp na finalização.</li>
+        </ul>
+      </div>
+      <div class="card accent">
+        <h3>Filas, Dados & Mídia</h3>
+        <ul>
+          <li><strong>Redis + BullMQ:</strong> Cache ultrarrápido e fila de recuperação de carrinho abandonado após <strong>X min</strong>.</li>
+          <li><strong>PostgreSQL + Prisma:</strong> Dados relacionais seguros de pedidos, estoque e avaliações.</li>
+          <li><strong>CDN (Cloudflare R2):</strong> Fotos leves em WebP/AVIF.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <span>Projeto Diozz Atacado — Documento Técnico & Visual</span>
+      <span>Página 1 de 3</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2: FLUXO DE ARQUITETURA, BULLMQ & SLUG DO PRODUTO -->
+  <div class="page">
+    <div class="header-bar">
+      <div class="brand">DIOZZ <small>Arquitetura de Filas & Experiência do Produto</small></div>
+      <div class="doc-tag">Engenharia & UX</div>
+    </div>
+
+    <h2>3. Fluxo de Arquitetura & Recuperação de Carrinho (Redis + BullMQ)</h2>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <strong>1. Cliente no Mobile</strong>
+        <span>Clica em <strong>+</strong> no tamanho (P/M/G/GG). Salva no navegador (localStorage) + API.</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="arch-node">
+        <strong>2. Redis + BullMQ</strong>
+        <span>Agenda job de lembrete com atraso configurável (ex.: <strong>X = 30 min</strong>).</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="arch-node">
+        <strong>3. Verificação</strong>
+        <span>Se o cliente fechar o pedido antes de X min, o job é cancelado automaticamente.</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="arch-node">
+        <strong>4. Worker WhatsApp</strong>
+        <span>Se abandonou, envia mensagem automática com link que restaura o carrinho.</span>
+      </div>
+    </div>
+
+    <h2>4. Experiência do Slug do Produto (Baseado na Referência Aprovada)</h2>
+    <div class="grid-2" style="align-items:start;">
+      <div class="img-frame">
+        <img src="./assets/referencia-diozz.jpg" alt="Referência Slug Diozz" />
+        <div class="img-cap">Referência atual aprovada pelo cliente: Estrutura de métricas, galeria e variações P/M/G/GG.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card accent">
+          <h3>Upgrades de UX Aplicados no Novo MVP</h3>
+          <ul>
+            <li><strong>Galeria Inteligente:</strong> Miniaturas ao lado (desktop) ou abaixo (mobile), setas e botão de download da foto para o revendedor.</li>
+            <li><strong>Prova Social em Tempo Real:</strong> Contadores de <em>visitas</em> e <em>vendas</em> no topo + <em>Notificação Global</em> discreta de compras recentes.</li>
+            <li><strong>+ e − Direto no Carrinho:</strong> Clicar em <strong>+</strong> no tamanho adiciona imediatamente ao carrinho, exibe o contador visual e dispara uma <strong>animação clean</strong> (pulso no número e salto no ícone do carrinho).</li>
+            <li><strong>Persistência Total:</strong> Estado preservado em <code>localStorage</code> + banco ao atualizar ou fechar o app.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Seções Completas Abaixo do Produto</h3>
+          <ul>
+            <li><strong>Descrição Técnica:</strong> Composição do tecido, gramatura e guia de medidas.</li>
+            <li><strong>Produtos Relacionados:</strong> Carrossel para aumentar peças por pedido.</li>
+            <li><strong>Perguntas & Avaliações:</strong> Área de dúvidas respondidas e comentários reais com estrelas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <span>Projeto Diozz Atacado — Documento Técnico & Visual</span>
+      <span>Página 2 de 3</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 3: ÁREA DO CLIENTE, PAINEL ADMIN, ROMANEIO & ROADMAP -->
+  <div class="page">
+    <div class="header-bar">
+      <div class="brand">DIOZZ <small>Operação Interna, Painel Configurável & Entrega</small></div>
+      <div class="doc-tag">Painel & Roadmap</div>
+    </div>
+
+    <h2>5. Área do Cliente Enxuta & Painel Administrativo Escalável</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>👤 Área do Cliente & Checkout sem Fricção</h3>
+        <ul>
+          <li><strong>Checkout em 1 Tela:</strong> Solicita exclusivamente <strong>Nome</strong> e <strong>Telefone (WhatsApp)</strong> — zero formulários longos ou senhas obrigatórias.</li>
+          <li><strong>Rastreio de Etapas:</strong> Pelo próprio telefone em <em>"Minha Conta"</em>, o comprador acompanha em tempo real: <code>Recebido → Pago → Em Separação → Despachado</code>.</li>
+          <li><strong>Notificação Ativa:</strong> Cada mudança de etapa no painel pode notificar o cliente no WhatsApp.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>⚙️ Painel Configurável para a Equipe</h3>
+        <ul>
+          <li><strong>Fácil de Usar:</strong> Telas limpas pensadas para funcionários operarem sem treinamento complexo.</li>
+          <li><strong>Altamente Configurável:</strong> Tempo <code>X</code> do carrinho abandonado (BullMQ), ativar/desativar notificação global, categorias, banners e regras de atacado.</li>
+          <li><strong>Gestão Completa (Fase 2):</strong> Cadastro de produtos, grades P/M/G/GG e baixa automática de estoque.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>6. Impressão de Etiqueta / Romaneio em 1 Clique (Exemplo Visual)</h2>
+    <div class="grid-2" style="align-items:center;">
+      <div class="romaneio-box">
+        <div style="text-align:center;border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;">
+          <strong>DIOZZ ATACADO — ROMANEIO DE EXPEDIÇÃO</strong>
+        </div>
+        <div><strong>PEDIDO:</strong> #DZ-1042 &nbsp;|&nbsp; <strong>ETAPA:</strong> Em Separação</div>
+        <div><strong>CLIENTE:</strong> Loja Estilo Nordeste</div>
+        <div><strong>WHATSAPP:</strong> (85) 99812-3456</div>
+        <div><strong>ENVIO:</strong> Excursão (Maraponga Mart Moda)</div>
+        <div style="border-top:1px dashed #000;margin:6px 0;padding-top:4px;">
+          10x Regata Marrom (Tam. M) ......... R$ 119,00<br/>
+          10x Regata Marrom (Tam. G) ......... R$ 119,00
+        </div>
+        <div style="border-top:1px dashed #000;padding-top:4px;display:flex;justify-content:space-between;">
+          <strong>TOTAL: 20 PEÇAS</strong>
+          <strong>VALOR: R$ 238,00</strong>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <h3>Benefício na Expedição da Fábrica</h3>
+        <p style="margin-bottom:6px;">
+          Dentro de cada pedido no Painel Admin, o botão <strong>"Imprimir Etiqueta / Romaneio"</strong> gera instantaneamente o layout térmico (10x15cm) ou A4 para o separador conferir os tamanhos e colar no pacote da excursão ou transportadora.
+        </p>
+        <p><strong>Protótipo Interativo:</strong> Todo esse fluxo já está navegável no arquivo <code>index.html</code> entregue junto a este PDF.</p>
+      </div>
+    </div>
+
+    <h2>7. Cronograma Sugerido de Execução (4 Semanas)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Semana</th>
+          <th>Entregas Principais</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Semana 1</strong></td><td>Infraestrutura (Next.js, Node.js, PostgreSQL, Redis) + Sync de leitura com a API FácilZap.</td></tr>
+        <tr><td><strong>Semana 2</strong></td><td>Vitrine Mobile-First + Slug do Produto (galeria, + / - direto no carrinho, animações, avaliações e perguntas).</td></tr>
+        <tr><td><strong>Semana 3</strong></td><td>Checkout enxuto (Nome/Telefone), Área do Cliente, Notificação Global (SSE) e Fila BullMQ de Carrinho Abandonado.</td></tr>
+        <tr><td><strong>Semana 4</strong></td><td>Painel Admin configurável, Controle de Etapas, Impressão de Etiqueta/Romaneio e Go-Live da Fase 1.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer-note">
+      <span>Projeto Diozz Atacado — Documento Técnico & Visual</span>
+      <span>Página 3 de 3</span>
+    </div>
+  </div>
+
+</body>
+</html>
